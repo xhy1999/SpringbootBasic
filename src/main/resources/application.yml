@@ -1,0 +1,18 @@
+project:
+  host: 127.0.0.1
+  # 是否为生产环境
+  is-product: false
+
+server:
+  port: 9001
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/demo?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    username: root
+    password: 123456
