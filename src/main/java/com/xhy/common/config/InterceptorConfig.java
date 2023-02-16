@@ -32,7 +32,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                     //公共模块
                     .addPathPatterns("/common/**")
                     //登录接口无需鉴权
-                    .excludePathPatterns("/common/user/login")
+                    .excludePathPatterns("/common/admin/api/login")
                     .addPathPatterns("/swagger-ui.html")
                     .addPathPatterns("/webjars/springfox-swagger-ui/**")
                     .addPathPatterns("/null/swagger-resources/**")
@@ -43,7 +43,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                     //公共模块
                     .addPathPatterns("/common/**")
                     //登录接口无需鉴权
-                    .excludePathPatterns("/common/user/login")
+                    .excludePathPatterns("/common/admin/api/login")
                     .excludePathPatterns("/swagger-ui.html")
                     .excludePathPatterns("/webjars/springfox-swagger-ui/**")
                     .excludePathPatterns("/null/swagger-resources/**")

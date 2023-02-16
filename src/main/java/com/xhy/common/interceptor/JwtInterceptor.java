@@ -30,22 +30,22 @@ public class JwtInterceptor implements HandlerInterceptor {
     private boolean isProduct;
 
     //请求黑名单
-    private static Set<String> blackSet;
+    private static Set<String> BLACK_SET;
     //请求白名单
-    private static Set<String> whiteSet;
+    private static Set<String> WHITE_SET;
 
     @Resource
-    private TokenUtil tokenUtil;
+    private TokenAdminUtil tokenAdminUtil;
 
     @Bean
     private void initJwtInterceptor() {
-        blackSet = new HashSet<>();
-        whiteSet = new HashSet<>();
+        BLACK_SET = new HashSet<>();
+        WHITE_SET = new HashSet<>();
         if (isProduct) {
-            blackSet.add("/swagger-ui.html");
-            blackSet.add("/webjars/springfox-swagger-ui/");
-            blackSet.add("/null/swagger-resources/");
-            blackSet.add("/swagger-resources/");
+            BLACK_SET.add("/swagger-ui.html");
+            BLACK_SET.add("/webjars/springfox-swagger-ui/");
+            BLACK_SET.add("/null/swagger-resources/");
+            BLACK_SET.add("/swagger-resources/");
         }
     }
 
@@ -68,8 +68,8 @@ public class JwtInterceptor implements HandlerInterceptor {
             ResponseUtil.writeResponse(Result.errParam("缺少请求头A"), response);
             return false;
         }
-        String userId = tokenUtil.token2UserId(token), oldToken;
-        if (StrUtil.isBlank(userId) || StrUtil.isBlank((oldToken = tokenUtil.getUserToken(userId)))) {
+        String adminId = tokenAdminUtil.token2AdminId(token), oldToken;
+        if (StrUtil.isBlank(adminId) || StrUtil.isBlank((oldToken = tokenAdminUtil.getAdminToken(adminId)))) {
             ResponseUtil.writeResponse(Result.fail(ResultCode.ERR_TOKEN, "Token失效"), response);
             return false;
         }
@@ -77,13 +77,13 @@ public class JwtInterceptor implements HandlerInterceptor {
             ResponseUtil.writeResponse(Result.fail(ResultCode.ERR_TOKEN, "此账号在别处登录"), response);
             return false;
         } else {
-            tokenUtil.refreshTokenExpire(userId);
+            tokenAdminUtil.refreshTokenExpire(adminId);
             return true;
         }
     }
 
     private boolean inBlackSet(String uri) {
-        for (String black : blackSet) {
+        for (String black : BLACK_SET) {
             if (uri.contains(black)) {
                 return true;
             }
@@ -92,7 +92,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     }
 
     private boolean inWhiteSet(String uri) {
-        for (String white : whiteSet) {
+        for (String white : WHITE_SET) {
             if (uri.contains(white)) {
                 return true;
             }

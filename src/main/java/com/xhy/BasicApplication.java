@@ -9,7 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ServletComponentScan
 @SpringBootApplication
-@MapperScan("com.xhy.common.*.mapper")
+@MapperScan("com.xhy.*.mapper") //TODO 这里根据实际包名修改
 public class BasicApplication {
 
     static {

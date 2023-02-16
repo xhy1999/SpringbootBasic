@@ -13,9 +13,12 @@ public interface CmRedisConst {
     //************************************ Key
 
     //Redis Key:用户信息前缀
-    String USER_KEY_PREFIX = "USER_";
+    String ADMIN_KEY_PREFIX = "ADMIN_";
 
     //Redis HKey:用户Token
     String TOKEN = "TOKEN";
+
+    //Redis HKey:是否为超级管理员
+    String IS_SUPER_ADMIN = "IS_SUPER_ADMIN";
 
 }

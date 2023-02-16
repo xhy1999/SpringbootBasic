@@ -16,26 +16,44 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
+    //TODO 这里的id和key都要修改
     private static final String JWT_ID = "Basic";
     private static final String JWT_KEY = "8RP3MzHy2Ivb0y1p";
 
-    public String createJWT(String userId, String sessionId) {
+    public static final String NAME_ACCOUNT = "account";
+    public static final String NAME_ADMIN_ID = "adminId";
+    public static final String NAME_SESSION_ID = "sessionId";
+    public static final String NAME_IS_SUPER_ADMIN = "isSuperAdmin";
+
+    //创建管理员JWT
+    public String createAdminJwt(String adminId, String account, String sessionId, String isSuperAdmin) {
         JwtBuilder builder = Jwts.builder().setId(JWT_ID)
                 .setIssuedAt(new Date())
-                .claim("userId", userId)
-                .claim("sessionId", sessionId)
+                .claim(NAME_ACCOUNT, account)
+                .claim(NAME_ADMIN_ID, adminId)
+                .claim(NAME_SESSION_ID, sessionId)
+                .claim(NAME_IS_SUPER_ADMIN, isSuperAdmin)
                 .signWith(SignatureAlgorithm.HS256, JWT_KEY);
         return builder.compact();
     }
 
     //解析JWT
-    public Claims parseJWT(String jwtStr) {
+    public Claims parseJwt(String jwtStr) {
         return Jwts.parser().setSigningKey(JWT_KEY).parseClaimsJws(jwtStr).getBody();
     }
 
-    //获取用户编号
-    public String getUserId(String jwtStr) {
-        return parseJWT(jwtStr).get("userId").toString();
+    //******************************** 获取信息
+
+    public String getAccount(String jwtStr) {
+        return (String) parseJwt(jwtStr).get(NAME_ACCOUNT);
+    }
+
+    public String getAdminId(String jwtStr) {
+        return (String) parseJwt(jwtStr).get(NAME_ADMIN_ID);
+    }
+
+    public String getIsSuperAdmin(String jwtStr) {
+        return (String) parseJwt(jwtStr).get(NAME_IS_SUPER_ADMIN);
     }
 
 }

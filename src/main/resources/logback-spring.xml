@@ -50,9 +50,6 @@
         <appender-ref ref="OUTPUT_ERROR_LOG"/>
     </root>
 
-    <!--开启sql打印-->
-    <logger name="com.xhy.canteen.mapper" level="DEBUG"/>
-
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
