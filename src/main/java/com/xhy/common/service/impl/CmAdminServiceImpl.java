@@ -1,11 +1,9 @@
 package com.xhy.common.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xhy.common.constant.CryptoConst;
-import com.xhy.common.constant.ResultCode;
 import com.xhy.common.mapper.CmAdminMapper;
 import com.xhy.common.pojo.entity.CmAdminEntity;
 import com.xhy.common.pojo.params.CmAdminChangePassParams;
