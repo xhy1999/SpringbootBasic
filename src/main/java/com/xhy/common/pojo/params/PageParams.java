@@ -10,6 +10,10 @@ import lombok.Data;
 @Data
 public class PageParams {
 
+    //默认分页参数
+    public static final long DEFAULT_PAGE_INDEX = 1L;
+    public static final long DEFAULT_PAGE_SIZE = 10L;
+
     //请求页数
     private Long pageIndex;
 
@@ -23,10 +27,10 @@ public class PageParams {
     //初始化分页值
     public PageParams initPage() {
         if (this.pageIndex == null || this.pageIndex < 1) {
-            this.pageIndex = 1L;
+            this.pageIndex = DEFAULT_PAGE_INDEX;
         }
         if (this.pageSize == null || this.pageSize < 1) {
-            this.pageSize = 10L;
+            this.pageSize = DEFAULT_PAGE_SIZE;
         }
         return this;
     }

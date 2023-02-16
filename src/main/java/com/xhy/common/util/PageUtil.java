@@ -16,9 +16,8 @@ import java.util.List;
 public class PageUtil extends cn.hutool.core.util.PageUtil {
 
     public static Page getPage(PageParams pageParams) {
-        //分页默认参数
-        long pageIndex = 1;
-        long pageSize = 10;
+        long pageIndex = PageParams.DEFAULT_PAGE_INDEX;
+        long pageSize = PageParams.DEFAULT_PAGE_SIZE;
         if (pageParams.getPageIndex() != null) {
             pageIndex = pageParams.getPageIndex();
         }

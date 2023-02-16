@@ -43,7 +43,7 @@ public class RSAParamsUtil {
         RSA rsa = new RSA();
         System.out.println("私钥:" + rsa.getPrivateKeyBase64());
         System.out.println("公钥:" + rsa.getPublicKeyBase64());
-        String encryptData = RSAResultUtil.encrypt("Donald Trump 123321");
+        String encryptData = RSAResultUtil.encrypt("Donald Trump 123321 哈哈");
         System.out.println("加密后:" + encryptData);
         System.out.println("解密后:" + decrypt(encryptData));
     }
