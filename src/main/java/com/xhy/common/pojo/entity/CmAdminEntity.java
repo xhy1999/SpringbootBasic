@@ -17,6 +17,11 @@ import java.util.Date;
 @TableName("cm_admin")
 public class CmAdminEntity {
 
+    //启用管理员
+    public static final String ENABLED = "1";
+    //禁用管理员
+    public static final String DISABLED = "0";
+
     /**
      * 管理员id 以ad_开头 共15位
      */
@@ -58,6 +63,10 @@ public class CmAdminEntity {
      * 备注
      */
     private String remark;
+    /**
+     * 是否启用: 0.禁用 1.启用
+     */
+    private String enabled;
     /**
      * 上次登录ip
      */

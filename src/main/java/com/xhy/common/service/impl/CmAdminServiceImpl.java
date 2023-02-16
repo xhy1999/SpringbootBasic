@@ -62,6 +62,9 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
                 }
             }
         }
+        if (CmAdminEntity.DISABLED.equals(adminEntity.getEnabled())) {
+            return Result.errParam("此账号被禁用");
+        }
         Map<String, String> resMap = new HashMap<>();
         if (tokenAdminUtil.checkAlreadyLogin(adminId)) {
             resMap.put("token", tokenAdminUtil.getAdminToken(adminId));

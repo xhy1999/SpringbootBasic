@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 15/02/2023 16:40:48
+ Date: 16/02/2023 13:55:30
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,7 @@ CREATE TABLE `cm_admin`  (
   `type` int(11) NULL DEFAULT NULL COMMENT '用户类型',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `enabled` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '是否启用: 0.禁用 1.启用',
   `last_login_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上次登录ip',
   `last_login_time` datetime NULL DEFAULT NULL COMMENT '上次登录时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -44,7 +45,7 @@ CREATE TABLE `cm_admin`  (
 -- ----------------------------
 -- Records of cm_admin
 -- ----------------------------
-INSERT INTO `cm_admin` VALUES ('ad_000000000000', '默认管理员', 'admin', '03a1ccbeceef20f8c7305e5b07b7c92838ea99a289820b5be3a10c3cd42f290e', '1', NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-15 16:33:57', '2023-02-15 14:30:51', '2023-02-15 14:30:51', '0');
+INSERT INTO `cm_admin` VALUES ('ad_000000000000', '默认管理员', 'admin', '03a1ccbeceef20f8c7305e5b07b7c92838ea99a289820b5be3a10c3cd42f290e', '1', NULL, NULL, NULL, NULL, NULL, '1', NULL, '2023-02-15 16:33:57', '2023-02-15 14:30:51', '2023-02-15 14:30:51', '0');
 
 -- ----------------------------
 -- Table structure for cm_log_admin_operate
