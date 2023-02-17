@@ -11,7 +11,7 @@ server:
 
 logging:
   level:
-    com.xinran.pam: trace
+    com.xhy: trace
   config: classpath:logback-spring.xml
 
 spring:
