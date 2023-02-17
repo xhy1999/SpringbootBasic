@@ -1,6 +1,7 @@
 package com.xhy.common.util;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.xhy.common.constant.ResultCode;
 
 import java.io.Serializable;
@@ -94,6 +95,10 @@ public class Result extends HashMap<String, Object> implements Serializable {
 
     public static Result errParam(String msg) {
         return fail(ResultCode.ERR_PARAM, msg);
+    }
+
+    public static Result errParam(String template, Object... params) {
+        return fail(ResultCode.ERR_PARAM, StrUtil.format(template, params));
     }
 
 }

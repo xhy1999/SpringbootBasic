@@ -1,10 +1,12 @@
 package com.xhy.common.exception;
 
+import cn.hutool.core.collection.CollUtil;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.xhy.common.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -74,6 +76,18 @@ public class CustomExceptionHandler {
     public Result constraintViolationExceptionHandler(ConstraintViolationException e) {
         String msg = e.getMessage();
         msg = msg.substring(msg.lastIndexOf(":") + 1).trim();
+        Result r = new Result();
+        r.put("code", 400);
+        r.put("message", msg);
+        return r;
+    }
+
+    /**
+     * 处理表单形式的@Valid参数异常
+     */
+    @ExceptionHandler(BindException.class)
+    public Result validationBindExceptionHandler(BindException e) {
+        String msg = CollUtil.isEmpty(e.getAllErrors()) ? "请求参数不合法" : e.getAllErrors().get(0).getDefaultMessage();
         Result r = new Result();
         r.put("code", 400);
         r.put("message", msg);
