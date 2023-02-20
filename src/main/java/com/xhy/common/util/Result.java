@@ -39,9 +39,26 @@ public class Result extends HashMap<String, Object> implements Serializable {
         put(DATA, data);
     }
 
-    public String getMessage() {
+    public String getStrData() {
+        Object data = this.get(DATA);
+        if (data == null) {
+            return null;
+        }
+        if (data instanceof String) {
+            return (String) data;
+        }
+        return ObjectUtil.toString(data);
+    }
+
+    public String getStrMessage() {
         Object message = this.get(MESSAGE);
-        return ObjectUtil.isNull(message) ? null : ObjectUtil.toString(message);
+        if (message == null) {
+            return null;
+        }
+        if (message instanceof String) {
+            return (String) message;
+        }
+        return ObjectUtil.toString(message);
     }
 
     public boolean isSuccess() {
@@ -99,6 +116,26 @@ public class Result extends HashMap<String, Object> implements Serializable {
 
     public static Result errParam(String template, Object... params) {
         return fail(ResultCode.ERR_PARAM, StrUtil.format(template, params));
+    }
+
+    public static Result dataNotExist() {
+        return errParam("数据不存在");
+    }
+
+    public static Result errDelParam() {
+        return errParam("无有效的删除数据");
+    }
+
+    public static Result errUploadFile() {
+        return fail("文件上传失败");
+    }
+
+    public static Result errFileType(String type) {
+        return errParam("不支持的文件类型:{}", type);
+    }
+
+    public static Result errFileSize(Integer maxSize) {
+        return errParam("文件大小超过上限({}MB)", maxSize);
     }
 
 }
