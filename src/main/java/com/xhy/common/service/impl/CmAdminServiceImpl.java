@@ -31,7 +31,7 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
     private boolean isProduct;
 
     @Resource
-    private TokenAdminUtil tokenAdminUtil;
+    private TokenAdminHelper tokenAdminHelper;
 
     @Override
     public Result login(CmAdminLoginParams params, HttpServletRequest request) {
@@ -64,10 +64,10 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
             return Result.errParam("此账号被禁用");
         }
         Map<String, String> resMap = new HashMap<>();
-        if (tokenAdminUtil.checkAlreadyLogin(adminId)) {
-            resMap.put("token", tokenAdminUtil.getAdminToken(adminId));
+        if (tokenAdminHelper.checkAlreadyLogin(adminId)) {
+            resMap.put("token", tokenAdminHelper.getAdminToken(adminId));
         } else {
-            resMap.put("token", tokenAdminUtil.generateToken(adminEntity, request.getSession().getId()));
+            resMap.put("token", tokenAdminHelper.generateToken(adminEntity, request.getSession().getId()));
         }
         resMap.put("adminId", adminEntity.getId());
         resMap.put("isSuperAdmin", adminEntity.getIsSuperAdmin());
@@ -80,7 +80,7 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
 
     @Override
     public Result changePass(CmAdminChangePassParams params, HttpServletRequest request) {
-        String adminId = tokenAdminUtil.request2AdminId(request);
+        String adminId = tokenAdminHelper.request2AdminId(request);
         if (StrUtil.isBlank(adminId)) {
             return Result.errParam("账号验证失败");
         }

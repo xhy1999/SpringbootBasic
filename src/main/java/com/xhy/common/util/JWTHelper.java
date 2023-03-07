@@ -14,7 +14,7 @@ import java.util.Date;
  * @since 2022/12/8
  */
 @Component
-public class JWTUtil {
+public class JWTHelper {
 
     //TODO 这里的id和key都要修改
     private static final String JWT_ID = "Basic";

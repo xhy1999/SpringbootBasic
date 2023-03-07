@@ -10,7 +10,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author xuehy
  * @since 2021/4/22
  */
-@Component
 public class UUIDUtil {
 
     /**
@@ -18,7 +17,7 @@ public class UUIDUtil {
      * @param removeSymbol 是否删除'-'符号
      * @return uuid
      */
-    public String getUUID(boolean removeSymbol) {
+    public static String getUUID(boolean removeSymbol) {
         UUID uuid = UUID.randomUUID();
         String str = uuid.toString();
         // 去掉"-"符号
@@ -29,7 +28,7 @@ public class UUIDUtil {
     }
 
     //获得指定数量的UUID
-    public String[] getUUID(int number, boolean removeSymbol) {
+    public static String[] getUUID(int number, boolean removeSymbol) {
         if (number < 1) {
             return null;
         }
@@ -46,7 +45,7 @@ public class UUIDUtil {
      * @param length 头后面的字符串长度
      * @return uuid
      */
-    public String getUUID(String head, Integer length) {
+    public static String getUUID(String head, Integer length) {
         String str = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = ThreadLocalRandom.current();
         StringBuffer sb = new StringBuffer(head);

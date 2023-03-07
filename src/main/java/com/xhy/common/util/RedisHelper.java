@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @since 2022/12/8
  */
 @Component
-public class RedisUtil {
+public class RedisHelper {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;

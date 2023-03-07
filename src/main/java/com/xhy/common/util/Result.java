@@ -118,6 +118,10 @@ public class Result extends HashMap<String, Object> implements Serializable {
         return fail(ResultCode.ERR_PARAM, StrUtil.format(template, params));
     }
 
+    public static Result errEmptyParam() {
+        return errParam("参数不能为空");
+    }
+
     public static Result dataNotExist() {
         return errParam("数据不存在");
     }

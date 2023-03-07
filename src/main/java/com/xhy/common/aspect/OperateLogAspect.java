@@ -5,7 +5,7 @@ import com.xhy.common.mapper.CmLogAdminOperateMapper;
 import com.xhy.common.pojo.entity.CmLogAdminOperateEntity;
 import com.xhy.common.util.IPUtil;
 import com.xhy.common.util.ModuleUtil;
-import com.xhy.common.util.TokenAdminUtil;
+import com.xhy.common.util.TokenAdminHelper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -31,7 +31,7 @@ public class OperateLogAspect {
     private CmLogAdminOperateMapper cmLogAdminOperateMapper;
 
     @Resource
-    private TokenAdminUtil tokenAdminUtil;
+    private TokenAdminHelper tokenAdminHelper;
 
     @Pointcut("@annotation(com.xhy.common.annotation.OperateLog)")
     public void OperateLogPointcut() {
@@ -57,7 +57,7 @@ public class OperateLogAspect {
                 entity.setDesc(opLog.desc());
                 entity.setType(opLog.type());
             }
-            entity.setAdminId(tokenAdminUtil.request2AdminId(request));
+            entity.setAdminId(tokenAdminHelper.request2AdminId(request));
             entity.setUri(request.getRequestURI());
             entity.setModule(ModuleUtil.getModuleByUri(entity.getUri()));
             entity.setIp(IPUtil.getIpAddr(request));

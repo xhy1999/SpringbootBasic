@@ -18,12 +18,12 @@ import java.util.HashMap;
  */
 @Slf4j
 @Component
-public class TokenAdminUtil {
+public class TokenAdminHelper {
 
     @Resource
-    private JWTUtil jwtUtil;
+    private JWTHelper jwtHelper;
     @Resource
-    private RedisUtil redisUtil;
+    private RedisHelper redisHelper;
 
     /**
      * 检查用户是否已经登陆
@@ -34,7 +34,7 @@ public class TokenAdminUtil {
         if (StrUtil.isBlank(adminId)) {
             return false;
         }
-        return StrUtil.isNotBlank(redisUtil.getHashMapValue(CmRedisConst.ADMIN_KEY_PREFIX + adminId, CmRedisConst.TOKEN));
+        return StrUtil.isNotBlank(redisHelper.getHashMapValue(CmRedisConst.ADMIN_KEY_PREFIX + adminId, CmRedisConst.TOKEN));
     }
 
     /**
@@ -44,13 +44,13 @@ public class TokenAdminUtil {
      * @return token
      */
     public String generateToken(CmAdminEntity admin, String sessionId) {
-        String token = jwtUtil.createAdminJwt(admin.getId(), admin.getAccount(), sessionId, admin.getIsSuperAdmin());
+        String token = jwtHelper.createAdminJwt(admin.getId(), admin.getAccount(), sessionId, admin.getIsSuperAdmin());
         String key = CmRedisConst.ADMIN_KEY_PREFIX + admin.getId();
         HashMap<String, String> map = new HashMap<>();
         map.put(CmRedisConst.TOKEN, token);
         map.put(CmRedisConst.IS_SUPER_ADMIN, admin.getIsSuperAdmin());
-        redisUtil.addHashMap(key, map);
-        redisUtil.setExpireTime(key);
+        redisHelper.addHashMap(key, map);
+        redisHelper.setExpireTime(key);
         return token;
     }
 
@@ -74,7 +74,7 @@ public class TokenAdminUtil {
                 if (adminToken.startsWith("Token=")) {
                     adminToken = adminToken.substring(6);
                 }
-                return jwtUtil.getAdminId(adminToken);
+                return jwtHelper.getAdminId(adminToken);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class TokenAdminUtil {
             return null;
         }
         try {
-            return redisUtil.getHashMapValue(CmRedisConst.ADMIN_KEY_PREFIX + adminId, CmRedisConst.TOKEN);
+            return redisHelper.getHashMapValue(CmRedisConst.ADMIN_KEY_PREFIX + adminId, CmRedisConst.TOKEN);
         } catch (Exception e) {
             return null;
         }
@@ -103,7 +103,7 @@ public class TokenAdminUtil {
      * @param adminId 管理员编号
      */
     public void refreshTokenExpire(String adminId) {
-        redisUtil.setExpireTime(CmRedisConst.ADMIN_KEY_PREFIX + adminId);
+        redisHelper.setExpireTime(CmRedisConst.ADMIN_KEY_PREFIX + adminId);
     }
 
 }

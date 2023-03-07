@@ -35,7 +35,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     private static Set<String> WHITE_SET;
 
     @Resource
-    private TokenAdminUtil tokenAdminUtil;
+    private TokenAdminHelper tokenAdminHelper;
 
     @Bean
     private void initJwtInterceptor() {
@@ -68,8 +68,8 @@ public class JwtInterceptor implements HandlerInterceptor {
             ResponseUtil.writeResponse(Result.errParam("缺少请求头A"), response);
             return false;
         }
-        String adminId = tokenAdminUtil.token2AdminId(token), oldToken;
-        if (StrUtil.isBlank(adminId) || StrUtil.isBlank((oldToken = tokenAdminUtil.getAdminToken(adminId)))) {
+        String adminId = tokenAdminHelper.token2AdminId(token), oldToken;
+        if (StrUtil.isBlank(adminId) || StrUtil.isBlank((oldToken = tokenAdminHelper.getAdminToken(adminId)))) {
             ResponseUtil.writeResponse(Result.fail(ResultCode.ERR_TOKEN, "Token失效"), response);
             return false;
         }
@@ -77,7 +77,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             ResponseUtil.writeResponse(Result.fail(ResultCode.ERR_TOKEN, "此账号在别处登录"), response);
             return false;
         } else {
-            tokenAdminUtil.refreshTokenExpire(adminId);
+            tokenAdminHelper.refreshTokenExpire(adminId);
             return true;
         }
     }
