@@ -1,6 +1,7 @@
 package com.xhy.common.controller;
 
-import com.xhy.common.annotation.OperateLog;
+import com.xhy.common.annotation.operate.OperateLog;
+import com.xhy.common.annotation.permission.AdminPermission;
 import com.xhy.common.constant.CmOperateType;
 import com.xhy.common.pojo.params.CmAdminChangePassParams;
 import com.xhy.common.pojo.params.CmAdminLoginParams;
@@ -31,14 +32,15 @@ public class CmAdminController {
     @Resource
     private CmAdminService cmAdminService;
 
-    @ApiOperation("管理员登录")
     @PostMapping("login")
+    @ApiOperation("管理员登录")
     public Result login(@RequestBody @Valid CmAdminLoginParams params, HttpServletRequest request) {
         return cmAdminService.login(params, request);
     }
 
-    @ApiOperation("管理员修改密码")
     @PostMapping("changePass")
+    @ApiOperation("管理员修改密码")
+    @AdminPermission("cmAdmin:changePass")
     @OperateLog(type = CmOperateType.UPDATE, desc = "管理员修改密码")
     public Result changePass(@RequestBody @Valid CmAdminChangePassParams params, HttpServletRequest request) {
         return cmAdminService.changePass(params, request);

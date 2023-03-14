@@ -1,7 +1,5 @@
 package com.xhy.common.util;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;

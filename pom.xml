@@ -161,6 +161,13 @@
             <version>6.2.0.Final</version>
         </dependency>
 
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
         <!-- 工具类 -->
         <dependency>
             <groupId>cn.hutool</groupId>

@@ -14,6 +14,8 @@ public interface ResultCode {
 
     //错误-参数
     int ERR_PARAM = 400;
+    //错误-无接口权限
+    int ERR_FORBIDDEN = 403;
     //错误-页面不存在
     int ERR_NOT_FOUND = 404;
 

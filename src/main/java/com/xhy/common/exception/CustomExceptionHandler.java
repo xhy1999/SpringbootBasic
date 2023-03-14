@@ -172,6 +172,17 @@ public class CustomExceptionHandler {
         return r;
     }
 
+    /**
+     * 处理'无此接口权限'异常
+     */
+    @ExceptionHandler(ApiForbiddenException.class)
+    public Result UnauthorizedExceptionHandler(ApiForbiddenException e) {
+        Result r = new Result();
+        r.put("code", e.getCode());
+        r.put("message", e.getMsg());
+        return r;
+    }
+
     @ExceptionHandler(Exception.class)
     public Result ExceptionHandler(Exception e) {
         log.error("捕捉到异常:");

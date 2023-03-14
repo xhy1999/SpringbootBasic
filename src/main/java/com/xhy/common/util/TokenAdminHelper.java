@@ -44,14 +44,32 @@ public class TokenAdminHelper {
      * @return token
      */
     public String generateToken(CmAdminEntity admin, String sessionId) {
-        String token = jwtHelper.createAdminJwt(admin.getId(), admin.getAccount(), sessionId, admin.getIsSuperAdmin());
+        String token = jwtHelper.createAdminJwt(admin.getId(), admin.getAccount(), sessionId, admin.getRoleId());
         String key = CmRedisConst.ADMIN_KEY_PREFIX + admin.getId();
         HashMap<String, String> map = new HashMap<>();
         map.put(CmRedisConst.TOKEN, token);
-        map.put(CmRedisConst.IS_SUPER_ADMIN, admin.getIsSuperAdmin());
+        map.put(CmRedisConst.ROLE_ID, String.valueOf(admin.getRoleId()));
         redisHelper.addHashMap(key, map);
         redisHelper.setExpireTime(key);
         return token;
+    }
+
+    /**
+     * 从请求头中获取Token
+     * @param request {@link HttpServletRequest}
+     * @return adminId
+     */
+    public String request2Token(HttpServletRequest request) {
+        return request.getHeader(JwtInterceptor.TOKEN_HEAD);
+    }
+
+    /**
+     * 从请求头中获取RoleId
+     * @param request {@link HttpServletRequest}
+     * @return adminId
+     */
+    public Integer request2RoleId(HttpServletRequest request) {
+        return request == null ? null : jwtHelper.getRoleId(request2Token(request));
     }
 
     /**
@@ -60,7 +78,7 @@ public class TokenAdminHelper {
      * @return adminId
      */
     public String request2AdminId(HttpServletRequest request) {
-        return request == null ? null : token2AdminId(request.getHeader(JwtInterceptor.TOKEN_HEAD));
+        return request == null ? null : token2AdminId(request2Token(request));
     }
 
     /**

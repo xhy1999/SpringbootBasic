@@ -9,6 +9,8 @@ import com.xhy.common.pojo.entity.CmAdminEntity;
 import com.xhy.common.pojo.params.CmAdminChangePassParams;
 import com.xhy.common.pojo.params.CmAdminLoginParams;
 import com.xhy.common.service.CmAdminService;
+import com.xhy.common.service.CmRoleApiService;
+import com.xhy.common.service.CmRoleService;
 import com.xhy.common.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
 
     @Value("${project.is-product}")
     private boolean isProduct;
+
+    @Resource
+    private CmRoleApiService cmRoleApiService;
 
     @Resource
     private TokenAdminHelper tokenAdminHelper;
@@ -69,8 +74,10 @@ public class CmAdminServiceImpl extends ServiceImpl<CmAdminMapper, CmAdminEntity
         } else {
             resMap.put("token", tokenAdminHelper.generateToken(adminEntity, request.getSession().getId()));
         }
+        //刷新一下此管理员对应的权限
+        cmRoleApiService.refreshRoleApiCache(adminEntity.getRoleId());
         resMap.put("adminId", adminEntity.getId());
-        resMap.put("isSuperAdmin", adminEntity.getIsSuperAdmin());
+        resMap.put("roleId", String.valueOf(adminEntity.getRoleId()));
         //设置最后登录信息
         adminEntity.setLastLoginIp(IPUtil.getIpAddr(request));
         adminEntity.setLastLoginTime(new Date());

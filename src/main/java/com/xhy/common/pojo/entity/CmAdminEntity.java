@@ -40,9 +40,9 @@ public class CmAdminEntity {
      */
     private String password;
     /**
-     * 是否为超级管理员 0.否 1.是
+     * 角色id
      */
-    private String isSuperAdmin;
+    private Integer roleId;
     /**
      * 邮箱
      */

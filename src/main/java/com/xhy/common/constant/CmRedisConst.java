@@ -18,7 +18,7 @@ public interface CmRedisConst {
     //Redis HKey:用户Token
     String TOKEN = "TOKEN";
 
-    //Redis HKey:是否为超级管理员
-    String IS_SUPER_ADMIN = "IS_SUPER_ADMIN";
+    //Redis HKey:管理员角色编号
+    String ROLE_ID = "ROLE_ID";
 
 }

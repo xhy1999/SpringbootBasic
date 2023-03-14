@@ -1,6 +1,6 @@
-package com.xhy.common.aspect;
+package com.xhy.common.aspect.operate;
 
-import com.xhy.common.annotation.OperateLog;
+import com.xhy.common.annotation.operate.OperateLog;
 import com.xhy.common.mapper.CmLogAdminOperateMapper;
 import com.xhy.common.pojo.entity.CmLogAdminOperateEntity;
 import com.xhy.common.util.IPUtil;
@@ -33,7 +33,7 @@ public class OperateLogAspect {
     @Resource
     private TokenAdminHelper tokenAdminHelper;
 
-    @Pointcut("@annotation(com.xhy.common.annotation.OperateLog)")
+    @Pointcut("@annotation(com.xhy.common.annotation.operate.OperateLog)")
     public void OperateLogPointcut() {
 
     }

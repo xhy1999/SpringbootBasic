@@ -23,16 +23,16 @@ public class JWTHelper {
     public static final String NAME_ACCOUNT = "account";
     public static final String NAME_ADMIN_ID = "adminId";
     public static final String NAME_SESSION_ID = "sessionId";
-    public static final String NAME_IS_SUPER_ADMIN = "isSuperAdmin";
+    public static final String NAME_ROLE = "roleId";
 
     //创建管理员JWT
-    public String createAdminJwt(String adminId, String account, String sessionId, String isSuperAdmin) {
+    public String createAdminJwt(String adminId, String account, String sessionId, Integer roleId) {
         JwtBuilder builder = Jwts.builder().setId(JWT_ID)
                 .setIssuedAt(new Date())
                 .claim(NAME_ACCOUNT, account)
                 .claim(NAME_ADMIN_ID, adminId)
                 .claim(NAME_SESSION_ID, sessionId)
-                .claim(NAME_IS_SUPER_ADMIN, isSuperAdmin)
+                .claim(NAME_ROLE, roleId)
                 .signWith(SignatureAlgorithm.HS256, JWT_KEY);
         return builder.compact();
     }
@@ -52,8 +52,8 @@ public class JWTHelper {
         return (String) parseJwt(jwtStr).get(NAME_ADMIN_ID);
     }
 
-    public String getIsSuperAdmin(String jwtStr) {
-        return (String) parseJwt(jwtStr).get(NAME_IS_SUPER_ADMIN);
+    public Integer getRoleId(String jwtStr) {
+        return (Integer) parseJwt(jwtStr).get(NAME_ROLE);
     }
 
 }

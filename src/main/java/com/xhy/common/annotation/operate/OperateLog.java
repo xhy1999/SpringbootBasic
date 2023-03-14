@@ -1,4 +1,4 @@
-package com.xhy.common.annotation;
+package com.xhy.common.annotation.operate;
 
 import java.lang.annotation.*;
 
