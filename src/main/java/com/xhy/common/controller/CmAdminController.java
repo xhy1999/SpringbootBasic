@@ -39,8 +39,8 @@ public class CmAdminController {
     }
 
     @PostMapping("changePass")
-    @ApiOperation("管理员修改密码")
     @AdminPermission("cmAdmin:changePass")
+    @ApiOperation("管理员修改密码")
     @OperateLog(type = CmOperateType.UPDATE, desc = "管理员修改密码")
     public Result changePass(@RequestBody @Valid CmAdminChangePassParams params, HttpServletRequest request) {
         return cmAdminService.changePass(params, request);

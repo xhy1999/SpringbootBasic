@@ -31,8 +31,8 @@ public class CmRoleController {
     private CmRoleService cmRoleService;
 
     @PostMapping("getRole")
-    @ApiOperation("分页获取角色列表")
     @AdminPermission("cmAdmin:getRole")
+    @ApiOperation("分页获取角色列表")
     @OperateLog(type = CmOperateType.ADD, desc = "分页获取角色列表")
     public Result getRole(@RequestBody @Valid CmRoleQueryParams params) {
         return cmRoleService.getRole(params);
