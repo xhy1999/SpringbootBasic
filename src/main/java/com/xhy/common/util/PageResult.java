@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author xuehy
  * @since 2021/5/20
  */
-public class PageResult extends Result {
+public class PageResult<T> extends Result {
 
-    public PageResult(IPage page) {
+    public PageResult(IPage<T> page) {
         super(0, "操作成功", page.getRecords());
         //当前页数
         put("pageIndex", page.getCurrent());
